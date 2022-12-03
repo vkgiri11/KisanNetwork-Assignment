@@ -36,7 +36,7 @@ const MessageBox = ({ open, setOpen, data }) => {
 
 			setOpen(false);
 		} catch (error) {
-			console.log(error);
+			console.log(error.response.data.message);
 		}
 	};
 
