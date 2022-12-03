@@ -4,6 +4,7 @@ import { setAxiosDefault } from './axiosDefault';
 
 import ContactDetails from './components/ContactDetails';
 import ContactsList from './components/ContactsList';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
 	setAxiosDefault();
@@ -11,6 +12,7 @@ function App() {
 		<>
 			<BrowserRouter>
 				<Container maxWidth="xl">
+					<NavBar />
 					<Routes>
 						<Route path="*" element={<Navigate to="/contacts" replace />} />
 						<Route path="contacts" element={<ContactsList />} />
