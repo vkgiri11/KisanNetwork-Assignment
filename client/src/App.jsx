@@ -1,23 +1,23 @@
-import axios from 'axios';
+import { Container } from '@mui/system';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { setAxiosDefault } from './axiosDefault';
+
+import ContactDetails from './components/ContactDetails';
+import ContactsList from './components/ContactsList';
 
 function App() {
 	setAxiosDefault();
-
-	const handleSubmit = async () => {
-		try {
-			await axios.post('/send_otp', {
-				to: '+917905058598',
-				message: 'OTP successfully generated',
-				name: 'Vivek',
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	return (
 		<>
-			<button onClick={handleSubmit}>Send Otp</button>
+			<BrowserRouter>
+				<Container maxWidth="xl">
+					<Routes>
+						<Route path="*" element={<Navigate to="/contacts" replace />} />
+						<Route path="contacts" element={<ContactsList />} />
+						<Route path="contacts/:id" element={<ContactDetails />} />
+					</Routes>
+				</Container>
+			</BrowserRouter>
 		</>
 	);
 }
