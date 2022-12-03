@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const messageSchema = mongoose.Schema(
 	{
-		Name: {
+		name: {
 			type: String,
 			max: 30,
 		},

@@ -12,7 +12,7 @@ function App() {
 				name: 'Vivek',
 			});
 		} catch (error) {
-			alert(error.message);
+			console.log(error);
 		}
 	};
 	return (
