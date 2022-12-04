@@ -26,9 +26,9 @@ mongoose
 	)
 	.catch((error) => console.log(`${error} did not connect`));
 
-app.use(express.static('client/dist'));
+app.use(express.static('admin/dist'));
 app.get('*', function (req, res) {
-	res.sendFile(path.resolve('client', 'dist', 'index.html'));
+	res.sendFile(path.resolve('admin', 'dist', 'index.html'));
 });
 
 app.get('/', (req, res) => {
