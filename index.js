@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import historyRoutes from './routes/history.js';
 import sendOtpRoutes from './routes/sendOtp.js';
@@ -18,6 +19,11 @@ app.use('/send_otp', sendOtpRoutes);
 
 app.get('/', (req, res) => {
 	res.send('App is Running !!');
+});
+
+app.use(express.static(path.join(__dirname, './client/dist')));
+app.get('*', function (req, res) {
+	res.sendFile(path.join(__dirname, './client/dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
