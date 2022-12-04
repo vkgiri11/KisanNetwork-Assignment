@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import { Avatar, Box, Card, CardContent, CircularProgress, Stack, Typography } from '@mui/material';
 
 const History = () => {
@@ -39,6 +40,7 @@ const History = () => {
 							<Typography>{element.name}</Typography>
 							<Typography>{element.to}</Typography>
 							<Typography>{element.message}</Typography>
+							<Typography>{moment(element.createdAt).format('DD-MM-YYYY HH:mm')}</Typography>
 						</Stack>
 					</CardContent>
 				</Card>
