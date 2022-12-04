@@ -14,11 +14,11 @@ const style = {
 	boxShadow: 24,
 	p: 4,
 };
+const nanoid = customAlphabet('1234567890', 6);
 
 const MessageBox = ({ open, setOpen, data }) => {
 	const [btnText, setBtnText] = useState('Send OTP');
 
-	const nanoid = customAlphabet('1234567890', 6);
 	const text = 'Hi. Your OTP is ' + nanoid();
 
 	const isDisabled = text.length > 30;
