@@ -2,8 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url'
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 import historyRoutes from './routes/history.js';
 import sendOtpRoutes from './routes/sendOtp.js';
@@ -22,8 +22,7 @@ app.get('/', (req, res) => {
 	res.send('App is Running !!');
 });
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, './client/dist')));
 app.get('*', function (req, res) {
 	res.sendFile(path.join(__dirname, './client/dist/index.html'));
