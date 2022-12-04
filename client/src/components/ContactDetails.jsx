@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Avatar, Button, Card, CardContent, Stack, Typography } from '@mui/material';
 
 import sample from '../data.json';
@@ -8,17 +8,11 @@ import MessageBox from './MessageBox';
 const ContactDetails = () => {
 	const [openMessageBox, setOpenMessageBox] = useState(false);
 	const { id } = useParams();
-	const navigate = useNavigate();
 
 	const userData = sample.data.filter((el) => el.guid === id)[0];
 
-	const handleBack = () => navigate('/contacts');
-
 	return (
 		<>
-			<Button variant="outlined" onClick={handleBack}>
-				Go Back
-			</Button>
 			<Stack direction="column" justifyContent="center" alignItems="center" mt={7}>
 				<Card>
 					<CardContent>
