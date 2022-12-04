@@ -41,6 +41,7 @@ const MessageBox = ({ open, setOpen, data }) => {
 				setOpen(false);
 			}, 1000);
 		} catch (error) {
+			setBtnText("Can't Send OTP");
 			console.log(error.response.data.message);
 		}
 	};
