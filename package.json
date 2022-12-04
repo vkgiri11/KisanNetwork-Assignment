@@ -6,8 +6,7 @@
 	"type": "module",
 	"scripts": {
 		"start": "node index.js",
-		"frontend": "cd client && npm run dev",
-		"dev-admin": "concurrently \"npm start\" \"npm run frontend\""
+		"frontend": "cd client && npm run dev"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,7 +19,6 @@
 		"twilio": "^3.83.4"
 	},
 	"devDependencies": {
-		"concurrently": "^7.6.0",
 		"nodemon": "^2.0.20"
 	}
 }
