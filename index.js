@@ -17,15 +17,6 @@ app.use(cors());
 app.use('/history', historyRoutes);
 app.use('/send_otp', sendOtpRoutes);
 
-app.get('/', (req, res) => {
-	res.send('App is Running !!');
-});
-
-app.use(express.static('admin/dist'));
-app.get('*', function (req, res) {
-	res.sendFile(path.resolve('admin', 'dist', 'index.html'));
-});
-
 const PORT = process.env.PORT || 5000;
 
 mongoose
@@ -34,3 +25,12 @@ mongoose
 		app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`))
 	)
 	.catch((error) => console.log(`${error} did not connect`));
+
+app.use(express.static('admin/dist'));
+app.get('*', function (req, res) {
+	res.sendFile(path.resolve('admin', 'dist', 'index.html'));
+});
+
+app.get('/', (req, res) => {
+	res.send('App is Running !!');
+});
