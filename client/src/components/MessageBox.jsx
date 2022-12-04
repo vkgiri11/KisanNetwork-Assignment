@@ -62,7 +62,11 @@ const MessageBox = ({ open, setOpen, data }) => {
 							error={isDisabled}
 							helperText={isDisabled && 'The Length of message should be less than 30'}
 						/>
-						<Button disabled={isDisabled} onClick={handleSubmit}>
+						<Button
+							variant="contained"
+							sx={{ marginTop: '25px' }}
+							disabled={isDisabled}
+							onClick={handleSubmit}>
 							Send OTP
 						</Button>
 					</Box>

@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
 	Paper,
+	Stack,
 	Table,
 	TableBody,
 	TableCell,
 	TableContainer,
-	TableFooter,
 	TableHead,
 	TablePagination,
 	TableRow,
+	Typography,
 } from '@mui/material';
 
 import sample from '../data.json';
@@ -19,9 +20,7 @@ const ContactsList = () => {
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const navigate = useNavigate();
 
-	const handleChangePage = (event, newPage) => {
-		setPage(newPage);
-	};
+	const handleChangePage = (event, newPage) => setPage(newPage);
 
 	const handleChangeRowsPerPage = (event) => {
 		setRowsPerPage(parseInt(event.target.value, 10));
@@ -32,36 +31,52 @@ const ContactsList = () => {
 
 	return (
 		<>
-			<TableContainer component={Paper}>
-				<Table>
-					<TableHead>
-						<TableCell>First Name</TableCell>
-						<TableCell>Last Name</TableCell>
-						<TableCell>Mobile Number</TableCell>
-					</TableHead>
-					<TableBody>
-						{sample.data.map((element) => (
-							<TableRow key={element.guid}>
-								<TableCell scope="row">{element.firstName}</TableCell>
-								<TableCell>{element.lastName}</TableCell>
-								<TableCell>{element.mobile}</TableCell>
+			<Stack direction="column" justifyContent="space-between" mt={7}>
+				<TableContainer component={Paper}>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>
+									<Typography fontWeight="bold">S. No.</Typography>
+								</TableCell>
+								<TableCell align="center">
+									<Typography fontWeight="bold">First Name</Typography>
+								</TableCell>
+								<TableCell align="center">
+									<Typography fontWeight="bold">Last Name</Typography>
+								</TableCell>
+								<TableCell align="center">
+									<Typography fontWeight="bold">Mobile</Typography>
+								</TableCell>
 							</TableRow>
-						))}
-					</TableBody>
-					<TableFooter>
-						<TableRow>
-							<TablePagination
-								rowsPerPageOptions={[5, 10, 25]}
-								count={sample.data.length}
-								rowsPerPage={rowsPerPage}
-								page={page}
-								onPageChange={handleChangePage}
-								onRowsPerPageChange={handleChangeRowsPerPage}
-							/>
-						</TableRow>
-					</TableFooter>
-				</Table>
-			</TableContainer>
+						</TableHead>
+						<TableBody>
+							{sample.data
+								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+								.map((element, index) => (
+									<TableRow
+										key={element.guid}
+										onClick={() => handleClick(element.guid)}
+										style={{ cursor: 'pointer' }}>
+										<TableCell>{index + 1}</TableCell>
+										<TableCell align="center">{element.firstName}</TableCell>
+										<TableCell align="center">{element.lastName}</TableCell>
+										<TableCell align="center">{element.mobile}</TableCell>
+									</TableRow>
+								))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+				<TablePagination
+					rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+					component="div"
+					count={sample.data.length}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					onPageChange={handleChangePage}
+					onRowsPerPageChange={handleChangeRowsPerPage}
+				/>
+			</Stack>
 		</>
 	);
 };
