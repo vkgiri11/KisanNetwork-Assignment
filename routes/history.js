@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
 	try {
 		const history = await Message.find().sort({ createdAt: -1 });
-		res.status(200).json({ history });
+		res.status(200).json({ data: history });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}

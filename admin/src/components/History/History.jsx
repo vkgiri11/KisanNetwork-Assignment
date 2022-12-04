@@ -12,7 +12,7 @@ const History = () => {
 
 		try {
 			const res = await axios.get('/history');
-			setData(res.data.history);
+			setData(res.data.data);
 			setLoading(false);
 		} catch (error) {
 			console.log(error.response);
