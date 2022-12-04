@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { customAlphabet } from 'nanoid';
-import { Backdrop, Box, Button, Fade, Grid, Modal, TextField } from '@mui/material';
+import { Backdrop, Box, Button, Fade, Modal, TextField, Typography } from '@mui/material';
 
 const style = {
 	position: 'absolute',
@@ -16,25 +16,30 @@ const style = {
 };
 
 const MessageBox = ({ open, setOpen, data }) => {
+	const [btnText, setBtnText] = useState('Send OTP');
+
 	const nanoid = customAlphabet('1234567890', 6);
-	const [text, setText] = useState('Hi. Your OTP is ' + nanoid());
+	const text = 'Hi. Your OTP is ' + nanoid();
+
 	const isDisabled = text.length > 30;
 
 	const handleClose = () => setOpen(false);
 
-	const handleTextChange = (val) => {
-		setText(val);
-	};
-
 	const handleSubmit = async () => {
 		try {
+			setBtnText('Sending OTP...');
+
 			await axios.post('/send_otp', {
 				to: data.mobile,
 				message: text,
 				name: data.firstName + ' ' + data.lastName,
 			});
 
-			setOpen(false);
+			setBtnText('OTP Sent Successfully !!');
+
+			setTimeout(() => {
+				setOpen(false);
+			}, 1000);
 		} catch (error) {
 			console.log(error.response.data.message);
 		}
@@ -52,22 +57,19 @@ const MessageBox = ({ open, setOpen, data }) => {
 				}}>
 				<Fade in={open}>
 					<Box sx={style}>
-						<TextField
-							fullWidth
-							multiline
-							rows={6}
-							label="Enter Your Message"
-							value={text}
-							onChange={(e) => handleTextChange(e.target.value)}
-							error={isDisabled}
-							helperText={isDisabled && 'The Length of message should be less than 30'}
-						/>
+						<Typography style={{ marginBottom: '25px' }}>
+							The following message will be sent to{' '}
+							<span style={{ fontWeight: 'bold' }}>
+								{data.firstName} {data.lastName}
+							</span>
+						</Typography>
+						<Typography>{text}</Typography>
 						<Button
 							variant="contained"
 							sx={{ marginTop: '25px' }}
 							disabled={isDisabled}
 							onClick={handleSubmit}>
-							Send OTP
+							{btnText}
 						</Button>
 					</Box>
 				</Fade>
